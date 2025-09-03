@@ -27,7 +27,7 @@ export type Character = {
 export default async function Characters({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
   const {
     status = "",

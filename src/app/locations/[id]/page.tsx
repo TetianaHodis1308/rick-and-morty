@@ -21,11 +21,11 @@ type LocationDetails = {
 export default async function LocationPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const res = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
-  if (!res.ok) throw new Error(`Location with ID ${params.id} not found`);
+  if (!res.ok) throw new Error(`Location with ID ${id} not found`);
   const location: LocationDetails = await res.json();
 
   const residentIdsArray = location.residents
