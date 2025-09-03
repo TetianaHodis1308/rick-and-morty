@@ -39,7 +39,7 @@ export default async function Locations() {
 
             <Link
               href={`/locations/${location.id}`}
-              className="text-indigo-400 hover:underline text-sm block"
+              className="text-indigo-400 hover:underline text-lg block"
             >
               View Details
             </Link>

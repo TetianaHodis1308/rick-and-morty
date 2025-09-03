@@ -39,7 +39,7 @@ export default async function Episodes() {
 
             <Link
               href={`/episodes/${episode.id}`}
-              className="text-indigo-400 hover:underline text-sm block mt-3"
+              className="text-indigo-400 hover:underline text-lg block mt-3"
             >
               View Details
             </Link>

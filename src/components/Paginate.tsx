@@ -27,6 +27,7 @@ export default function Paginate({ countPages }: PaginateProps) {
           pageRangeDisplayed={0}
           previousLabel="<"
           nextLabel=">"
+          onPageChange={handlePageClick}
           containerClassName="flex gap-4"
           previousLinkClassName="px-3 py-2 bg-gray-800 text-white rounded"
           nextLinkClassName="px-3 py-2 bg-gray-800 text-white rounded"
