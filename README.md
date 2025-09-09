@@ -1,4 +1,5 @@
 # Rick and Morty Explorer
+[**Демо лінка**](https://rick-and-morty-yrgq.vercel.app/)
 
 **Опис проєкту**  
 Rick and Morty Explorer — це веб-додаток, створений з використанням Next.js 13 (App Router) та Tailwind CSS. Він підключається до офіційного [Rick and Morty API](https://rickandmortyapi.com), дозволяючи переглядати персонажів, епізоди та локації. Підтримуються фільтрація, пошук, пагінація та детальні сторінки.
