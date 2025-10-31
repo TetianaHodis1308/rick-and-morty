@@ -29,7 +29,7 @@ export type Character = {
 export default async function Characters({
   searchParams,
 }: {
-  searchParams?: Record<string, string>;
+  searchParams?: Promise<Record<string, string> | undefined>;
 }) {
   const params = await searchParams; // <- обов’язково await
   const { page = "1", name = "", status = "", gender = "" } = params || {};
