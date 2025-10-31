@@ -1,29 +1,31 @@
+import { EpisodeDetails } from "@/types/EpisodeDetails";
 import Link from "next/link";
 
-type EpisodeType = {
-  id: number;
-  name: string;
-  air_date: string;
-  episode: string;
-  characters: string[];
-  url: string;
-  created: string;
-};
+// type EpisodeType = {
+//   id: number;
+//   name: string;
+//   air_date: string;
+//   episode: string;
+//   characters: string[];
+//   url: string;
+//   created: string;
+// };
 
 export default async function Episodes() {
   const res = await fetch("https://rickandmortyapi.com/api/episode");
   if (!res.ok) throw new Error("Episodes not found");
   const data = await res.json();
-  const episodes: EpisodeType[] = data.results;
+  const episodes: EpisodeDetails[] = data.results;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
+    <main className="flex-1 bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
       <h1 className="text-4xl font-bold text-center mb-10">Episodes</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {episodes.map((episode) => (
-          <div
+          <Link
             key={episode.id}
+            href={`/episodes/${episode.id}`}
             className="bg-gray-800 rounded-lg shadow-md p-4 hover:scale-105 transition-transform duration-200"
           >
             <h2 className="text-xl font-semibold mb-2">{episode.name}</h2>
@@ -37,13 +39,10 @@ export default async function Episodes() {
               <strong>Characters:</strong> {episode.characters.length}
             </p>
 
-            <Link
-              href={`/episodes/${episode.id}`}
-              className="text-indigo-400 hover:underline text-lg block mt-3"
-            >
+            <p className="text-indigo-400 hover:underline text-lg block mt-3">
               View Details
-            </Link>
-          </div>
+            </p>
+          </Link>
         ))}
       </div>
     </main>

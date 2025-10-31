@@ -1,21 +1,23 @@
+import { EpisodeDetails } from "@/types/EpisodeDetails";
+import { Character } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-};
+// type Character = {
+//   id: number;
+//   name: string;
+//   image: string;
+// };
 
-type EpisodeDetails = {
-  id: number;
-  name: string;
-  air_date: string;
-  episode: string;
-  characters: string[];
-  url: string;
-  created: string;
-};
+// type EpisodeDetails = {
+//   id: number;
+//   name: string;
+//   air_date: string;
+//   episode: string;
+//   characters: string[];
+//   url: string;
+//   created: string;
+// };
 
 export default async function EpisodePage({
   params,
@@ -37,7 +39,7 @@ export default async function EpisodePage({
   const characterList = Array.isArray(characters) ? characters : [characters];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
+    <main className="flex-1 bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-4">{episode.name}</h1>
         <p className="text-lg text-gray-300 mb-2">

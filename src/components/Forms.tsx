@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/useDebounce";
+import { FormsProps } from "@/types/types";
 
-type FormsProps = {
-  status: string;
-  gender: string;
-  name: string;
-};
+// type FormsProps = {
+//   status: string;
+//   gender: string;
+//   name: string;
+// };
 
 export default function Forms({ status, gender, name }: FormsProps) {
   const router = useRouter();
@@ -19,6 +20,8 @@ export default function Forms({ status, gender, name }: FormsProps) {
 
   const [sex, setSex] = useState(gender);
   const [statusState, setStatusState] = useState(status);
+
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -74,7 +77,9 @@ export default function Forms({ status, gender, name }: FormsProps) {
             name="name"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name"
+            placeholder={isFocused ? "" : "Search by name"}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             className="px-3 py-2 rounded border border-gray-700 text-white bg-gray-900 text-center"
           />
 
