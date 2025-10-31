@@ -5,6 +5,8 @@ export async function GET() {
   try {
     const data = await fetchCharacters({ page: "1" });
     setCachedCharacters(data.results || []);
+
+    console.log("🪄 Оновлено Rick & Morty персонажів:", data.results);
     return Response.json({ success: true, count: data.results?.length || 0 });
   } catch (err) {
     return Response.json(
