@@ -1,36 +1,31 @@
 import Image from "next/image";
-import { Character } from "@/types/types";
 
-// type Character = {
-//   id: number;
-//   name: string;
-//   status: "Alive" | "Dead" | "unknown";
-//   species: string;
-//   type: string;
-//   gender: "Female" | "Male" | "Genderless" | "unknown";
-//   origin: {
-//     name: string;
-//     url: string;
-//   };
-//   location: {
-//     name: string;
-//     url: string;
-//   };
-//   image: string;
-//   episode: string[];
-//   url: string;
-//   created: string;
-// };
+type Character = {
+  id: number;
+  name: string;
+  status: "Alive" | "Dead" | "unknown";
+  species: string;
+  type: string;
+  gender: "Female" | "Male" | "Genderless" | "unknown";
+  origin: {
+    name: string;
+    url: string;
+  };
+  location: {
+    name: string;
+    url: string;
+  };
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
+};
 
-// type CharacterPageProps = {
-//   params: Promise<{ id: string }>;
-// };
-
-export default async function CharacterPage({
-  params,
-}: {
+type CharacterPageProps = {
   params: Promise<{ id: string }>;
-}) {
+};
+
+export default async function CharacterPage({ params }: CharacterPageProps) {
   const { id } = await params;
   const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
   if (!res.ok) throw new Error("Character not found");
@@ -44,7 +39,7 @@ export default async function CharacterPage({
       : "text-yellow-300";
 
   return (
-    <main className="flex-1 bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10 flex justify-center items-center">
+    <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10 flex justify-center items-center">
       <div className="bg-gray-900 rounded-lg shadow-xl p-8 max-w-2xl w-full border border-gray-700">
         <div className="flex flex-col items-center">
           <Image

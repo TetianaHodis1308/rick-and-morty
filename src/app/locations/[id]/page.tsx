@@ -1,23 +1,22 @@
-import { Character, LocationDetails } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-// type Character = {
-//   id: number;
-//   name: string;
-//   image: string;
-// };
+type Character = {
+  id: number;
+  name: string;
+  image: string;
+};
 
-// type LocationDetails = {
-//   id: number;
-//   name: string;
-//   type: string;
-//   dimension: string;
-//   residents: string[];
-//   url: string;
-//   created: string;
-// };
+type LocationDetails = {
+  id: number;
+  name: string;
+  type: string;
+  dimension: string;
+  residents: string[];
+  url: string;
+  created: string;
+};
 
 export default async function LocationPage({
   params,
@@ -45,7 +44,7 @@ export default async function LocationPage({
   }
 
   return (
-    <main className="flex-1 bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800 text-white px-6 py-10">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-4">{location.name}</h1>
         <p className="text-lg text-gray-300 mb-2">
