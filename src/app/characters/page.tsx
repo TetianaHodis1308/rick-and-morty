@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Forms from "@/components/Forms";
 import Paginate from "@/components/Paginate";
-import { getCachedCharacters } from "../api/update/route";
+import { fetchCharacters } from "@/api/characters";
+import { getCachedCharacters } from "@/api/charactersCache";
 
 export type Character = {
   id: number;
@@ -28,35 +29,54 @@ export type Character = {
 export default async function Characters({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams?: Record<string, string>;
 }) {
-  const {
-    status = "",
-    gender = "",
-    name = "",
-    page = "1",
-  } = await searchParams;
+  const params = await searchParams; // <- обов’язково await
+  const { page = "1", name = "", status = "", gender = "" } = params || {};
 
-  const query = new URLSearchParams();
+  // Тепер можна без проблем використовувати page, name, status, gender
+  // let characters = getCachedCharacters();
 
-  if (status) query.set("status", status);
-  if (gender) query.set("gender", gender);
-  if (name) query.set("name", name);
-  query.set("page", page);
+  // if (!characters.length) {
+  //   const data = await fetchCharacters({ page, name, status, gender });
+  //   characters = data.results || [];
+  // }
 
-  // спроба взяти з кешу, якщо є
-  const cached = getCachedCharacters();
-  let characters: Character[] = cached;
-  let countPages = 1;
+  // const {
+  //   page = "1",
+  //   name = "",
+  //   status = "",
+  //   gender = "",
+  // } = searchParams || {};
 
-  if (!characters || characters.length === 0) {
-    // якщо кешу нема — фетчимо напряму
-    const apiUrl = `https://rickandmortyapi.com/api/character/?${query.toString()}`;
-    const res = await fetch(apiUrl, { cache: "no-store" });
-    const data = await res.json();
+  const query = { page, name, status, gender };
+  let characters: Character[] = getCachedCharacters();
+  let countPages: number = 1;
+
+  if (!characters.length) {
+    const data = await fetchCharacters(query);
     characters = data.results || [];
-    countPages = data.info?.pages || 1;
+    countPages = data.info?.pages;
   }
+
+  // export default async function Characters({
+  //   searchParams,
+  // }: {
+  //   searchParams: Promise<{ [key: string]: string | undefined }>;
+  // }) {
+  //   const {
+  //   status = "",
+  //   gender = "",
+  //   name = "",
+  //   page = "1",
+  // } = await searchParams;
+
+  // const query = new URLSearchParams();
+
+  // if (status) query.set("status", status);
+  // if (gender) query.set("gender", gender);
+  // if (name) query.set("name", name);
+  // query.set("page", page);
 
   // const apiUrl = `https://rickandmortyapi.com/api/character/?${query.toString()}`;
 
