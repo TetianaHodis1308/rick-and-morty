@@ -54,7 +54,7 @@ export default async function Characters({
   return (
     <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800  text-white px-6 py-10">
       <h1 className="text-4xl font-bold text-center mb-10">
-        Rick and Morty Characters
+        Rick and Morty Characters!
       </h1>
 
       <Forms status={status} gender={gender} name={name} />
