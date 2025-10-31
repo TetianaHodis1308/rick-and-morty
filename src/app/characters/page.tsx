@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Forms from "@/components/Forms";
 import Paginate from "@/components/Paginate";
+import { getCachedCharacters } from "../api/update/route";
 
 export type Character = {
   id: number;
@@ -43,13 +44,27 @@ export default async function Characters({
   if (name) query.set("name", name);
   query.set("page", page);
 
-  const apiUrl = `https://rickandmortyapi.com/api/character/?${query.toString()}`;
+  // спроба взяти з кешу, якщо є
+  const cached = getCachedCharacters();
+  let characters: Character[] = cached;
+  let countPages = 1;
 
-  const res = await fetch(apiUrl);
-  const data = await res.json();
+  if (!characters || characters.length === 0) {
+    // якщо кешу нема — фетчимо напряму
+    const apiUrl = `https://rickandmortyapi.com/api/character/?${query.toString()}`;
+    const res = await fetch(apiUrl, { cache: "no-store" });
+    const data = await res.json();
+    characters = data.results || [];
+    countPages = data.info?.pages || 1;
+  }
 
-  const characters: Character[] = data.results || [];
-  const countPages: number = data.info?.pages || 1;
+  // const apiUrl = `https://rickandmortyapi.com/api/character/?${query.toString()}`;
+
+  // const res = await fetch(apiUrl);
+  // const data = await res.json();
+
+  // const characters: Character[] = data.results || [];
+  // const countPages: number = data.info?.pages || 1;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-900 to-purple-800  text-white px-6 py-10">
